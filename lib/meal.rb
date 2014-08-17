@@ -14,5 +14,9 @@ class Meal
     @ingredients
   end
 
+  def add_ingredient(new_ingredient)
+    @ingredients << new_ingredient
+  end
+
 
 end

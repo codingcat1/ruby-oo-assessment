@@ -17,5 +17,12 @@ describe Meal do
     expect(test_meal.ingredients).to eq []
   end
 
+  it "can add ingredients to a meal" do
+    test_meal = Meal.new 'Fried rice'
+    test_ingredient = Ingredient.new 'rice'
+    test_meal.add_ingredient(test_ingredient)
+    expect(test_meal.ingredients).to eq [test_ingredient]
+  end
+
 
 end
