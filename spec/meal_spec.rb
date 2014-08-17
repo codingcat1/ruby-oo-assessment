@@ -6,4 +6,11 @@ describe Meal do
     test_meal = Meal.new 'Clam chowder'
     expect(test_meal).to be_an_instance_of Meal
   end
+
+  it "shows user the inputted meal name" do
+    test_meal = Meal.new 'Clam chowder'
+    expect(test_meal.name).to eq 'Clam chowder'
+  end
+
+
 end
