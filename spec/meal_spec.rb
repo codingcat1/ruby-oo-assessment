@@ -12,5 +12,10 @@ describe Meal do
     expect(test_meal.name).to eq 'Fried rice'
   end
 
+  it "starts out with an empty list of ingredients" do
+    test_meal = Meal.new 'Fried rice'
+    expect(test_meal.ingredients).to eq []
+  end
+
 
 end

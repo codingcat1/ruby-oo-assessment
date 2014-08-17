@@ -12,4 +12,5 @@ describe Ingredient do
     expect(test_ingredient.name).to eq 'rice'
   end
 
+
 end
