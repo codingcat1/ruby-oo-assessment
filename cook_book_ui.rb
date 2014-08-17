@@ -4,7 +4,7 @@ require './lib/ingredient'
 def main_menu
   loop do
     system 'clear'
-    puts "***COOK BOOK***"
+    puts "*** COOK BOOK ***"
     puts "Press 'm' to create a new meal in the Cook Book."
     puts "Press 'l' to list all meals"
     puts "Press 'x' to exit."
@@ -23,5 +23,6 @@ def main_menu
     end
   end
 end
+
 
 main_menu

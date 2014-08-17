@@ -1,5 +1,6 @@
 class Meal
 
+  @@all_meals = []
 
   def initialize(name)
     @name = name
@@ -18,5 +19,12 @@ class Meal
     @ingredients << new_ingredient
   end
 
+  def Meal.all
+    @@all_meals
+  end
+
+  def save
+    @@all_meals << self
+  end
 
 end
