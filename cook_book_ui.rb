@@ -1,5 +1,8 @@
 require './lib/meal'
 require './lib/ingredient'
+require 'pry'
+
+@new_meal
 
 
 def main_menu
@@ -30,10 +33,19 @@ def create_meal
   puts "*** NEW MEAL ***"
   puts "Please enter the name of your meal:"
   meal_input = gets.chomp
-  new_meal = Meal.new(meal_input)
-  Meal.new(new_meal).save
-  puts "*" + "#{new_meal.name}" + "*" " has been saved in your recipe book.\n\n"
+  @new_meal = Meal.new(meal_input)
+  Meal.new(@new_meal).save
+  puts "* #{@new_meal.name} * has been saved in your recipe book.\n\n"
   sleep(1)
+  # main_menu
+end
+
+def list_meals
+  puts "*** Here is a list of the meals you have created so far: ***"
+  Meal.all.each_with_index do |new_meal, index|
+    puts "#{index+1}. #{@new_meal.name}"
+    @meal_number = "#{index+1}"
+  end
 end
 
 
