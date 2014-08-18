@@ -34,19 +34,31 @@ def create_meal
   puts "Please enter the name of your meal:"
   meal_input = gets.chomp
   @new_meal = Meal.new(meal_input)
-  Meal.new(@new_meal).save
+  @new_meal.save
   puts "* #{@new_meal.name} * has been saved in your recipe book.\n\n"
   sleep(1)
-  # main_menu
 end
 
 def list_meals
   puts "*** Here is a list of the meals you have created so far: ***"
   Meal.all.each_with_index do |new_meal, index|
-    puts "#{index+1}. #{@new_meal.name}"
+    puts "#{index+1}. #{new_meal.name}\n\n"
     @meal_number = "#{index+1}"
   end
+  loop do
+    puts "Type the number of a meal to add ingredients"
+    puts "Press 'x' to return to the main menu"
+    list_meal = gets.chomp
+    if list_meal == @meal_number
+      add_ingredients
+    elsif list_meal == 'x'
+      main_menu
+    else
+      puts "Not a valid entry"
+    end
+  end
 end
+
 
 
 
