@@ -53,7 +53,7 @@ def list_meals
       choice = gets.chomp
       if choice == 'a'
         add_ingredient
-      elsif choice == 'x'
+      elsif choice == 'l'
         list_ingredients
       else 
         puts "Sorry, not a valid entry"
@@ -74,6 +74,13 @@ def add_ingredient
   @new_ingredient = Ingredient.new(ingredient_input)
   @new_meal.add_ingredient(@new_ingredient)
   puts "* #{@new_ingredient.name} * has been added to the recipe for #{@new_meal.name}.\n\n"
+end
+
+def list_ingredients
+  puts "Here are the ingredients for *** #{@new_meal.name} ***"
+  @new_meal.ingredients.each_with_index do |ingredient, index|
+    puts "#{index+1}. #{ingredient.name}\n\n"
+  end
 end
 
 
