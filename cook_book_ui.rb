@@ -1,6 +1,5 @@
 require './lib/meal'
 require './lib/ingredient'
-require 'pry'
 
 @new_meal
 
@@ -50,13 +49,21 @@ def list_meals
     puts "Press 'x' to return to the main menu"
     list_meal = gets.chomp
     if list_meal == @meal_number
-      add_ingredients
+      add_ingredient
     elsif list_meal == 'x'
       main_menu
     else
       puts "Not a valid entry"
     end
   end
+end
+
+def add_ingredient
+  puts "Enter your ingredients below: "
+  ingredient_input = gets.chomp
+  @new_ingredient = Ingredient.new(ingredient_input)
+  @new_meal.add_ingredient(@new_ingredient)
+  puts "* #{@new_ingredient.name} * has been added to the recipe for #{@new_meal.name}."
 end
 
 
