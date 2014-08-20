@@ -1,9 +1,6 @@
 require './lib/meal'
 require './lib/ingredient'
 
-@new_meal
-
-
 def main_menu
   loop do
     puts "*** COOK BOOK ***"
@@ -32,60 +29,59 @@ def create_meal
   puts "*** NEW MEAL ***"
   puts "Please enter the name of your meal:"
   meal_input = gets.chomp
-  @new_meal = Meal.new(meal_input)
-  @new_meal.save
-  puts "* #{@new_meal.name} * has been saved in your recipe book.\n\n"
+  new_meal = Meal.new(meal_input)
+  new_meal.save
+  puts "* #{new_meal.name} * has been saved in your recipe book.\n\n"
   sleep(1)
 end
 
 def list_meals
   puts "*** Here is a list of the meals you have created so far: ***"
-  Meal.all.each_with_index do |new_meal, index|
-    puts "#{index+1}. #{new_meal.name}\n\n"
-    @meal_number = "#{index+1}"
+  Meal.all.each_with_index do |meal, index|
+    puts "#{index+1}. #{meal.name}\n\n"
   end
-  loop do
-    puts "Type the number of a meal to add or view ingredients"
-    puts "Press 'x' to return to the main menu"
-    list_meal = gets.chomp
-    if list_meal == @meal_number
-      puts "Press 'a' to add ingredients or 'l' to list all ingredients"
-      choice = gets.chomp
-      if choice == 'a'
-        add_ingredient
-      elsif choice == 'l'
-        list_ingredients
-      else 
-        puts "Sorry, not a valid entry"
-        sleep(1.5)
-        list_meal
-      end
-    elsif list_meal == 'x'
-      main_menu
-    else
-      puts "Not a valid entry"
+  puts "Type the number of a meal to add or view ingredients"
+  puts "Press 'x' to return to the main menu"
+  list_meal = gets.chomp
+  if list_meal == 'x'
+    main_menu
+  end
+  list_meal = list_meal.to_i
+  list_meal = list_meal-1
+  if list_meal == -1 or list_meal > Meal.all.length
+    puts "Sorry, not a valid entry"
+    sleep(1.5)
+    list_meals
+  else   
+    puts "Press 'a' to add ingredients or 'l' to list all ingredients"
+    choice = gets.chomp
+    if choice == 'a'
+      add_ingredient(list_meal)
+    elsif choice == 'l'
+      list_ingredients(list_meal)
     end
   end
 end
 
-def add_ingredient
-  puts "Enter your ingredients below: "
+def add_ingredient(list_meal)
+  puts "Enter your ingredients below or type 'f' when finished to return to main menu"
   ingredient_input = gets.chomp
-  @new_ingredient = Ingredient.new(ingredient_input)
-  @new_meal.add_ingredient(@new_ingredient)
-  puts "* #{@new_ingredient.name} * has been added to the recipe for #{@new_meal.name}.\n\n"
-end
-
-def list_ingredients
-  puts "Here are the ingredients for *** #{@new_meal.name} ***"
-  @new_meal.ingredients.each_with_index do |ingredient, index|
-    puts "#{index+1}. #{ingredient.name}\n\n"
+  if ingredient_input == 'f'
+    main_menu
+  else
+    new_ingredient = Ingredient.new(ingredient_input)
+    Meal.all[list_meal].add_ingredient(new_ingredient)
+    puts "* #{new_ingredient.name} * has been added to the recipe for #{Meal.all[list_meal].name}.\n\n"
+    add_ingredient(list_meal)
   end
 end
 
-
-
-
-
+def list_ingredients(list_meal)
+  puts "Here are the ingredients for *** #{Meal.all[list_meal].name} ***"
+  Meal.all[list_meal].ingredients.each_with_index do |ingredient, index|
+    puts "#{index+1}. #{ingredient.name}\n\n"
+  end
+  main_menu
+end
 
 main_menu
