@@ -45,11 +45,21 @@ def list_meals
     @meal_number = "#{index+1}"
   end
   loop do
-    puts "Type the number of a meal to add ingredients"
+    puts "Type the number of a meal to add or view ingredients"
     puts "Press 'x' to return to the main menu"
     list_meal = gets.chomp
     if list_meal == @meal_number
-      add_ingredient
+      puts "Press 'a' to add ingredients or 'l' to list all ingredients"
+      choice = gets.chomp
+      if choice == 'a'
+        add_ingredient
+      elsif choice == 'x'
+        list_ingredients
+      else 
+        puts "Sorry, not a valid entry"
+        sleep(1.5)
+        list_meal
+      end
     elsif list_meal == 'x'
       main_menu
     else
@@ -63,8 +73,10 @@ def add_ingredient
   ingredient_input = gets.chomp
   @new_ingredient = Ingredient.new(ingredient_input)
   @new_meal.add_ingredient(@new_ingredient)
-  puts "* #{@new_ingredient.name} * has been added to the recipe for #{@new_meal.name}."
+  puts "* #{@new_ingredient.name} * has been added to the recipe for #{@new_meal.name}.\n\n"
 end
+
+
 
 
 
